@@ -39,4 +39,6 @@ A NodeJS REPL environment preloaded with a Y variable populated by a YUI sandbox
     .yql select * from flickr.photos.recent
 </pre>
 
+## Screencast
 
+Here is a simple little screencast of it in action: [View Video](http://dl.dropbox.com/u/5669457/YUI3-REPL-2.mov)
