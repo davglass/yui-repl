@@ -1,0 +1,23 @@
+{
+    "name": "yui-repl",
+    "description": "YUI 3 Powered REPL",
+    "version": "0.0.1",
+    "author": "Dav Glass <davglass@gmail.com>",
+    "bugs": { "web": "http://github.com/davglass/yui-repl/issues" },
+    "os": [ "darwin", "linux" ],
+    "engines": { "node": ">=0.4.0" },
+    "bin": { "yui3": "./bin/yui-repl.js" },
+    "licenses": [{
+        "type": "BSD",
+        "url": "http://developer.yahoo.com/yui/license.html"
+    }],
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/davglass/yui-repl.git"
+    },
+    "dependencies": {
+        "yui3": ">=0.5.26",
+        "yui3-core": "3.3.0",
+        "colors": "0.3.0"
+     }
+}
