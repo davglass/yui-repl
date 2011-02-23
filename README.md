@@ -1,6 +1,6 @@
 # YUI REPL
 
-A NodeJS REPL environment reloaded with a Y variable populated by a YUI sandbox.
+A NodeJS REPL environment preloaded with a Y variable populated by a YUI sandbox.
 
 ## Install
 
