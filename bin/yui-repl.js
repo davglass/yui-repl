@@ -14,6 +14,7 @@ Y.toString = function() {
 };
 
 var repl = replServer.start('YUI@' + Y.version + '> ');
+
 var ctx = repl.context;
 ctx.Y = Y;
 
@@ -35,6 +36,8 @@ var load = function(url) {
         self.displayPrompt();
     });
 };
+
+
 
 repl.defineCommand('import', {
     help: 'Import a document into this context',
@@ -83,7 +86,7 @@ repl.defineCommand('io', {
                         self.outputStream.write(' [done]\n'.white);
                         var str;
                         try {
-                            str = util.inspect(JSON.parse(e.responseText), false, 1, true);
+                            str = util.inspect(JSON.parse(e.responseText), false, Infinity, true);
                         } catch (e) {
                             str = e.responseText
                         }
