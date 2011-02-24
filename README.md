@@ -33,10 +33,21 @@ A NodeJS REPL environment preloaded with a Y variable populated by a YUI sandbox
     .io http://yuilibrary.com/gallery/api/show/yql
 </pre>
 
+`.headers {url}` Make an IO request to the passed URL and return the headers
+<pre class="console">
+    .headers https://graph.facebook.com/davglass
+    .headers http://yuilibrary.com/gallery/api/show/yql
+</pre>
+
 `.yql {sql}` Make an YQL request with the passed SQL statement
 <pre class="console">
     .yql select * from weather.forecast where location=90210
     .yql select * from flickr.photos.recent
+</pre>
+
+`.debug` Toggle the debug config on the YUI instance, outputs the new debug setting.
+<pre class="console">
+    .debug
 </pre>
 
 ## Screencast

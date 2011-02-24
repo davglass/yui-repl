@@ -9,11 +9,9 @@ require('colors');
 
 var Y = require('yui3').silent().useSync('yui-base');
 
-Y.toString = function() {
-    return 'Dav was here..'
-};
-
 var repl = replServer.start('YUI@' + Y.version + '> ');
+
+var debug = false;
 
 var ctx = repl.context;
 ctx.Y = Y;
@@ -37,7 +35,16 @@ var load = function(url) {
     });
 };
 
-
+repl.defineCommand('debug', {
+    help: 'Toggle the YUI debug config option',
+    action: function() {
+        var d = !debug+'';
+        debug = !debug;
+        this.outputStream.write('Setting debug on the Y instance to: '.magenta + d.white + '\n');
+        this.context.Y.config.debug = debug;
+        this.displayPrompt();
+    }
+});
 
 repl.defineCommand('import', {
     help: 'Import a document into this context',
@@ -84,14 +91,38 @@ repl.defineCommand('io', {
                 on: {
                     complete: function(id, e) {
                         self.outputStream.write(' [done]\n'.white);
+                        self.outputStream.write(' (' + (e.status + '').green + ' ' + e.statusText + '): Content-Type: "' + e.headers['content-type'].green + '"\n\n'.white);
                         var str;
                         try {
                             str = util.inspect(JSON.parse(e.responseText), false, Infinity, true);
                         } catch (e) {
-                            str = e.responseText
+                            str = e.responseText;
                         }
                         self.outputStream.write(str);
-                        self.outputStream.write('\n');
+                        self.outputStream.write('\n\n');
+                        self.displayPrompt();
+                    }
+                }
+            });
+        });
+    }
+});
+
+repl.defineCommand('headers', {
+    help: 'Make an IO request to the passed URL and only return the headers',
+    action: function(url) {
+        var self = this,
+        Y = this.context.Y;
+        self.outputStream.write('Making IO Request: '.magenta + url.yellow);
+        Y.use('io', function() {
+            Y.io(url, {
+                on: {
+                    complete: function(id, e) {
+                        self.outputStream.write(' [done]\n'.white);
+                        self.outputStream.write(' (' + (e.status + '').green + ' ' + e.statusText + '): Content-Type: "' + e.headers['content-type'].green + '"\n\n'.white);
+                        var str = util.inspect(e.headers, false, Infinity, true);
+                        self.outputStream.write(str);
+                        self.outputStream.write('\n\n');
                         self.displayPrompt();
                     }
                 }
@@ -116,10 +147,14 @@ repl.defineCommand('yql', {
                     str = util.inspect(r, false, Infinity, true);
                 }
                 self.outputStream.write(str);
-                self.outputStream.write('\n');
+                self.outputStream.write('\n\n');
                 self.displayPrompt();
             });
         });
     }
 });
 
+
+process.on('uncaughtException', function(e) {
+    Y.log(e.stack, 'error', 'repl');
+});
