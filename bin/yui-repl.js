@@ -9,7 +9,19 @@ require('colors');
 
 var Y = require('yui3').silent().useSync('yui-base');
 
-var repl = replServer.start('YUI@' + Y.version + '> ');
+var prompt = 'YUI@' + Y.version + '> ';
+var len = prompt.length;
+prompt = 'YUI'.magenta + '@'.white + Y.version.yellow + '> '.white;
+
+replServer.REPLServer.prototype.displayPrompt = function() {
+    var l = this.bufferedCommand.length ? 4 : len;
+    this.rli.setPrompt(this.bufferedCommand.length ? '... ' : this.prompt, l);
+    this.rli.prompt();
+};
+
+var repl = replServer.start(prompt);
+
+
 
 var debug = false;
 
@@ -19,7 +31,7 @@ ctx.Y = Y;
 repl.defineCommand('clear', {
     help: 'Clear the current Y context',
     action: function() {
-        this.outputStream.write('Resetting Y to the default state\n');
+        this.outputStream.write('Resetting Y to the default state\n'.magenta);
         this.bufferedCommand = '';
         this.context.Y = require('yui3').silent().useSync('yui-base');
         this.displayPrompt();
@@ -154,7 +166,6 @@ repl.defineCommand('yql', {
     }
 });
 
-
-process.on('uncaughtException', function(e) {
-    Y.log(e.stack, 'error', 'repl');
-});
+for (var i in repl.commands) {
+    repl.commands[i].help = repl.commands[i].help.white;
+}
