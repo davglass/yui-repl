@@ -22,6 +22,7 @@ cli.main(function() {
     var opts = this.options;
 
     var Y = require('yui3');
+    var YUI = Y.YUI;
     if (opts.silent == 'on') {
         Y = Y.silent();
     }
@@ -30,10 +31,10 @@ cli.main(function() {
     var start = function() {
         if (opts.get) {
             util.print('Fetching script:'.magenta + opts.get.yellow);
-            var r = yrepl.startPrompt(Y);
+            var r = yrepl.startPrompt(Y, YUI);
             r.commands['.get'].action.call(r, opts.get);
         } else {
-            yrepl.startPrompt(Y);
+            yrepl.startPrompt(Y, YUI);
         }
     }
     
