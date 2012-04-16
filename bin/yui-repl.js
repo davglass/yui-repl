@@ -21,12 +21,12 @@ cli.parse({
 cli.main(function() {
     var opts = this.options;
 
-    var Y = require('yui3');
+    var Y = require('yui');
     var YUI = Y.YUI;
     if (opts.silent == 'on') {
-        Y = Y.silent();
+        //Y = Y.silent();
     }
-    Y = Y.useSync('yui-base');
+    Y = YUI();
 
     var start = function() {
         if (opts.get) {
