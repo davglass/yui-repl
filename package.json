@@ -17,8 +17,7 @@
     },
     "preferGlobal": "true",
     "dependencies": {
-        "yui3": ">=0.7.0",
-        "yui3-core": "3.4.0",
+        "yui": ">=3.5.0",
         "colors": "0.3.0",
         "cli": "0.2.6"
      }
