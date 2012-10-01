@@ -1,7 +1,7 @@
 {
     "name": "yui-repl",
     "description": "YUI 3 Powered REPL",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "author": "Dav Glass <davglass@gmail.com>",
     "bugs": { "web": "http://github.com/davglass/yui-repl/issues" },
     "os": [ "darwin", "linux" ],
@@ -18,7 +18,7 @@
     "preferGlobal": "true",
     "dependencies": {
         "jsdom": ">=0.2.0",
-        "yui": ">=3.5.0",
+        "yui": ">=3.7.0",
         "colors": "0.3.0",
         "cli": "0.2.6"
      }
